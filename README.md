@@ -1,2 +1,2 @@
-# GL02_UTTeam
+# GL02_NoJs
 Implémentation du cahier des charge de UTTeam.
