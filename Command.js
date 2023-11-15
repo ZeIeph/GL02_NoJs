@@ -1,7 +1,7 @@
 var Command = {
     check: function(){
-    console.log("Command Ready !")
-    return true
-    }
-    }
-    module.exports = Command
+        console.log("Gray is okay".gray)
+        console.log("Command Ready !")
+        return true
+    }}
+module.exports = Command
