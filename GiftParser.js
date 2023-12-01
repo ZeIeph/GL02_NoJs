@@ -1,9 +1,9 @@
-var POI = require('./POI');
+var Question = require('./Question');
 
 
-// VpfParser
+// GiftParser
 
-var VpfParser = function(sTokenize, sParsedSymb){
+var GiftParser = function(sTokenize, sParsedSymb){
 	// The list of POI parsed from the input file.
 	this.parsedPOI = [];
 	this.symb = ["START_POI","name","latlng","note","END_POI","$$"];
@@ -16,7 +16,7 @@ var VpfParser = function(sTokenize, sParsedSymb){
 
 // tokenize : tranform the data input into a list
 // <eol> = CRLF
-VpfParser.prototype.tokenize = function(data){
+GiftParser.prototype.tokenize = function(data){
 	var separator = /(\r\n|: )/;
 	data = data.split(separator);
 	data = data.filter((val, idx) => !val.match(separator)); 					
@@ -24,7 +24,7 @@ VpfParser.prototype.tokenize = function(data){
 }
 
 // parse : analyze data by calling the first non terminal rule of the grammar
-VpfParser.prototype.parse = function(data){
+GiftParser.prototype.parse = function(data){
 	var tData = this.tokenize(data);
 	if(this.showTokenize){
 		console.log(tData);
@@ -34,13 +34,13 @@ VpfParser.prototype.parse = function(data){
 
 // Parser operand
 
-VpfParser.prototype.errMsg = function(msg, input){
+GiftParser.prototype.errMsg = function(msg, input){
 	this.errorCount++;
 	console.log("Parsing Error ! on "+input+" -- msg : "+msg);
 }
 
 // Read and return a symbol from input
-VpfParser.prototype.next = function(input){
+GiftParser.prototype.next = function(input){
 	var curS = input.shift();
 	if(this.showParsedSymbols){
 		console.log(curS);
@@ -49,7 +49,7 @@ VpfParser.prototype.next = function(input){
 }
 
 // accept : verify if the arg s is part of the language symbols.
-VpfParser.prototype.accept = function(s){
+GiftParser.prototype.accept = function(s){
 	var idx = this.symb.indexOf(s);
 	// index 0 exists
 	if(idx === -1){
@@ -63,7 +63,7 @@ VpfParser.prototype.accept = function(s){
 
 
 // check : check whether the arg elt is on the head of the list
-VpfParser.prototype.check = function(s, input){
+GiftParser.prototype.check = function(s, input){
 	if(this.accept(input[0]) == this.accept(s)){
 		return true;	
 	}
@@ -71,7 +71,7 @@ VpfParser.prototype.check = function(s, input){
 }
 
 // expect : expect the next symbol to be s.
-VpfParser.prototype.expect = function(s, input){
+GiftParser.prototype.expect = function(s, input){
 	if(s == this.next(input)){
 		//console.log("Reckognized! "+s)
 		return true;
@@ -85,13 +85,13 @@ VpfParser.prototype.expect = function(s, input){
 // Parser rules
 
 // <liste_poi> = *(<poi>) "$$"
-VpfParser.prototype.listPoi = function(input){
+GiftParser.prototype.listPoi = function(input){
 	this.poi(input);
 	this.expect("$$", input);
 }
 
 // <poi> = "START_POI" <eol> <body> "END_POI"
-VpfParser.prototype.poi = function(input){
+GiftParser.prototype.poi = function(input){
 
 	if(this.check("START_POI", input)){
 		this.expect("START_POI", input);
@@ -111,14 +111,14 @@ VpfParser.prototype.poi = function(input){
 }
 
 // <body> = <name> <eol> <latlng> <eol> <optional>
-VpfParser.prototype.body = function(input){
+GiftParser.prototype.body = function(input){
 	var nm = this.name(input);
 	var ltlg = this.latlng(input);
 	return { nm: nm, lt: ltlg.lat, lg: ltlg.lng };
 }
 
 // <name> = "name: " 1*WCHAR
-VpfParser.prototype.name = function(input){
+GiftParser.prototype.name = function(input){
 	this.expect("name",input)
 	var curS = this.next(input);
 	if(matched = curS.match(/[\wàéèêîù'\s]+/i)){
@@ -129,7 +129,7 @@ VpfParser.prototype.name = function(input){
 }
 
 // <latlng> = "latlng: " ?"-" 1*3DIGIT "." 1*DIGIT", " ?"-" 1*3DIGIT "." 1*DIGIT
-VpfParser.prototype.latlng = function(input){
+GiftParser.prototype.latlng = function(input){
 	this.expect("latlng",input)
 	var curS = this.next(input);
 	if(matched = curS.match(/(-?\d+(\.\d+)?);(-?\d+(\.\d+)?)/)){
@@ -141,7 +141,7 @@ VpfParser.prototype.latlng = function(input){
 
 // <optional> = *(<note>)
 // <note> = "note: " "0"/"1"/"2"/"3"/"4"/"5"
-VpfParser.prototype.note = function (input, curPoi){
+GiftParser.prototype.note = function (input, curPoi){
 	if(this.check("note", input)){
 		this.expect("note", input);
 		var curS = this.next(input);
@@ -156,4 +156,4 @@ VpfParser.prototype.note = function (input, curPoi){
 	}
 }
 
-module.exports = VpfParser;
+module.exports = GiftParser;
