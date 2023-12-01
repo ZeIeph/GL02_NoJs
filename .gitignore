@@ -2,3 +2,4 @@ node_modules/
 JsonFile/
 package-lock.json 
 package.json
+.idea/
