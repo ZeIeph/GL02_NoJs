@@ -10,6 +10,7 @@ const Parser = require("gift-parser-ide").default;
 
 // Chemin du répertoire contenant les fichiers GIFT
 const directoryPath = 'SujetB_data';
+//const directoryPath = '.';
 
 // Crée un dossier "JsonFile" s'il n'existe pas déjà
 const outputDirectory = path.join('JsonFile');
@@ -22,13 +23,16 @@ const files = fs.readdirSync(directoryPath);
 
 // Assurez-vous que la variable files est définie et n'est pas null
 if (files && files.length > 0) {
+
     // Fonction pour lire et parser un fichier GIFT
     function processFile(filePath) {
         const fileContent = fs.readFileSync(filePath, 'utf8');
 
         // Parse le fichier GIFT avec gift-parser
         const parser = new Parser();
-        const parsedData = parser.update(fileContent).parseOnly(fileContent);
+        const newFileContent=fileContent.replaceAll("~=","=");
+        const parsedData = parser.update(newFileContent).parseOnly(newFileContent);
+        
 
         // Crée un nouveau fichier dans le dossier "JsonFile" pour stocker le résultat
         const outputFileName = path.basename(filePath, '.gift') + '_parsed.json';
