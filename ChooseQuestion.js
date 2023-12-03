@@ -16,6 +16,15 @@ const examen = { questions: [] };
 const MAX_QUESTIONS = 20;
 const MIN_QUESTIONS = 15;
 
+let nomFichierExamen; // Variable pour stocker le nom du fichier d'examen
+
+function demanderNomFichierExamen() {
+    readline.question("Entrez le nom que vous souhaitez donner au fichier d'examen (sans extension) : ", (nomFichier) => {
+        nomFichierExamen = nomFichier + '.json';
+        demanderUnite();
+    });
+}
+
 function afficherQuestions(unit) {
     const dossier = 'JsonFile';
     const fichiers = fs.readdirSync(dossier).filter(fichier => fichier.endsWith('.json') && fichier.includes(unit));
@@ -70,7 +79,7 @@ function lireOption(questions) {
                 console.log(`L'examen doit comporter au moins ${MIN_QUESTIONS} questions. Ajoutez plus de questions.`);
                 lireOption(questions);
             } else {
-                console.log('\nExamen terminé. Consultez le fichier Examen.json.');
+                console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
                 terminerExamen();
             }
         } else {
@@ -105,14 +114,13 @@ function choisirQuestionMemeUnite(unit) {
 }
 
 function questionDejaSelectionnee(question) {
-    // Vérifie si la question a déjà été sélectionnée dans l'examen
     return examen.questions.some(q => q.title === question.title && q.stem.text === question.stem.text);
 }
 
 function demanderUnite() {
     readline.question("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou 'fini' pour terminer : ", (userUnit) => {
         if (userUnit.toLowerCase() === 'fini') {
-            console.log('\nExamen terminé. Consultez le fichier Examen.json.');
+            console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
             terminerExamen();
         } else if (/^U[1-9]|1[0-1]$/.test(userUnit)) {
             unitChoisie = userUnit;
@@ -126,9 +134,8 @@ function demanderUnite() {
 
 function terminerExamen() {
     const examenJSON = JSON.stringify(examen, null, 2);
-    fs.writeFileSync('Examen.json', examenJSON);
+    fs.writeFileSync(nomFichierExamen, examenJSON);
     readline.close();
 }
 
-let unitChoisie;
-demanderUnite();
+demanderNomFichierExamen();  // Appel initial pour demander le nom du fichier d'examen
