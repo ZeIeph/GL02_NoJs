@@ -17,10 +17,18 @@ const MAX_QUESTIONS = 20;
 const MIN_QUESTIONS = 15;
 
 let nomFichierExamen; // Variable pour stocker le nom du fichier d'examen
+const dossierExamen = 'Examen'; // Nom du dossier d'examen
+
+function verifierDossierExamen() {
+    if (!fs.existsSync(dossierExamen)) {
+        fs.mkdirSync(dossierExamen);
+    }
+}
 
 function demanderNomFichierExamen() {
+    verifierDossierExamen();
     readline.question("Entrez le nom que vous souhaitez donner au fichier d'examen (sans extension) : ", (nomFichier) => {
-        nomFichierExamen = nomFichier + '.json';
+        nomFichierExamen = path.join(dossierExamen, nomFichier + '.json');
         demanderUnite();
     });
 }
@@ -138,4 +146,4 @@ function terminerExamen() {
     readline.close();
 }
 
-demanderNomFichierExamen();  // Appel initial pour demander le nom du fichier d'examen
+demanderNomFichierExamen(); // Appel initial pour demander le nom du fichier d'examen
