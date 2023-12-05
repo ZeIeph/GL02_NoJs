@@ -1,0 +1,5 @@
+var vCardJS = require('vcards-js');
+
+//create a new vCard
+var vCard = vCardJS();
+
