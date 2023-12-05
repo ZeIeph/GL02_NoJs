@@ -10,8 +10,13 @@ const rl = readline.createInterface({
 const examsFolder = './Examen';
 
 function navigateQuestions() {
-    console.log('Naviguer dans les questions (fonctionnalité à implémenter).');
-    showMenu();
+    console.log('Naviguer dans la base de données des questions');
+    try {
+        const demanderNomFichierExamen = require('./Naviguer');
+    } catch (error) {
+        console.error('Erreur lors de la redirection vers Naviguer.js :', error.message);
+        showMenu();
+    }
 }
 
 function composeExam() {
@@ -19,7 +24,7 @@ function composeExam() {
     try {
         const demanderNomFichierExamen = require('./ChooseQuestion');
     } catch (error) {
-        console.error('Erreur lors de la redirection vers Accueil.js :', error.message);
+        console.error('Erreur lors de la redirection vers ChooseQuestion.js :', error.message);
         showMenu();
     }
 }
