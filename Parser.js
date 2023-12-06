@@ -32,7 +32,7 @@ if (files && files.length > 0) {
         const parser = new Parser();
         const newFileContent=fileContent.replaceAll("~=","=");
         const parsedData = parser.update(newFileContent).parseOnly(newFileContent);
-        
+
 
         // Crée un nouveau fichier dans le dossier "JsonFile" pour stocker le résultat
         const outputFileName = path.basename(filePath, '.gift') + '_parsed.json';
@@ -53,5 +53,3 @@ if (files && files.length > 0) {
 } else {
     console.error('Aucun fichier trouvé dans le répertoire.');
 }
-
-
