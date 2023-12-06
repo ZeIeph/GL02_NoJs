@@ -82,6 +82,9 @@ function lireOption(questions) {
                 terminerExamen();
             }
             break;
+        case 'out':
+            console.log('Vous forcez la sortie. Appuyez sur CTRL+C')
+            break;
         default:
             console.log('Option invalide. Veuillez choisir une option valide.');
             lireOption(questions);
@@ -133,7 +136,7 @@ function demanderUnite() {
 function terminerExamen() {
     const examenJSON = JSON.stringify(examen, null, 2);
     fs.writeFileSync(nomFichierExamen, examenJSON);
-    rlChooseQuestion.close();
+    rl.ChooseQuestion.close();
 }
 
 // Initialiser l'unité choisie
