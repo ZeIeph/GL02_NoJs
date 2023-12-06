@@ -1,23 +1,13 @@
-// 1.Demander à l'utilisateur dans quelle Unité il veut choisir sa question (U1,U2...dans le début du nom des files)
-// 2.Afficher toutes les questions présentes dans l'unité
-// 3.Demander à l'utilisateur l'ID de la question qu'il veut sélectionner
-// 4.Garder l'ID en mémoire et lui demander si il veut choisir une autre question dans la même unité, dans une autre unité ou si il a fini de choisir
-// Selon sa réponse, retourner à l'étape 1, ou 2, ou terminer
-
 const fs = require('fs');
 const path = require('path');
-
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+const prompt = require('prompt-sync')();
 
 const examen = { questions: [] };
 const MAX_QUESTIONS = 20;
 const MIN_QUESTIONS = 15;
 
-let nomFichierExamen; // Variable pour stocker le nom du fichier d'examen
-const dossierExamen = 'Examen'; // Nom du dossier d'examen
+let nomFichierExamen;
+const dossierExamen = 'Examen';
 
 function verifierDossierExamen() {
     if (!fs.existsSync(dossierExamen)) {
@@ -27,10 +17,8 @@ function verifierDossierExamen() {
 
 function demanderNomFichierExamen() {
     verifierDossierExamen();
-    readline.question("Entrez le nom que vous souhaitez donner au fichier d'examen (sans extension) : ", (nomFichier) => {
-        nomFichierExamen = path.join(dossierExamen, nomFichier + '.json');
-        demanderUnite();
-    });
+    nomFichierExamen = path.join(dossierExamen, prompt("Entrez le nom que vous souhaitez donner au fichier d'examen (sans extension) : ") + '.json');
+    demanderUnite();
 }
 
 function afficherQuestions(unit) {
@@ -44,7 +32,7 @@ function afficherQuestions(unit) {
         const cheminFichier = path.join(dossier, fichier);
         const data = JSON.parse(fs.readFileSync(cheminFichier, 'utf-8'));
 
-        console.log(`\nQuestions dans le fichier ${fichier} :`);
+        console.log(`\nQuestions dans le fichier ${fichier}:`);
         data.forEach(item => {
             if ('title' in item && item['title'] && item['title'].includes(unit)) {
                 console.log(`${questionNumber}. ${item['title']}`);
@@ -77,12 +65,15 @@ function lireOption(questions) {
     console.log("2. Choisir une question dans une autre unité");
     console.log("3. Terminer");
 
-    readline.question('Choisissez l\'option correspondante (1, 2, 3) : ', (reponse) => {
-        if (reponse === '1') {
+    const reponse = prompt('Choisissez l\'option correspondante (1, 2, 3) : ');
+    switch (reponse) {
+        case '1':
             choisirQuestionMemeUnite(unitChoisie);
-        } else if (reponse === '2') {
+            break;
+        case '2':
             demanderUnite();
-        } else if (reponse === '3') {
+            break;
+        case '3':
             if (examen.questions.length < MIN_QUESTIONS) {
                 console.log(`L'examen doit comporter au moins ${MIN_QUESTIONS} questions. Ajoutez plus de questions.`);
                 lireOption(questions);
@@ -90,31 +81,31 @@ function lireOption(questions) {
                 console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
                 terminerExamen();
             }
-        } else {
+            break;
+        default:
             console.log('Option invalide. Veuillez choisir une option valide.');
             lireOption(questions);
-        }
-    });
+            break;
+    }
 }
 
 function choisirQuestionMemeUnite(unit) {
     const questions = afficherQuestions(unit);
     if (questions.length > 0) {
-        readline.question('Veuillez entrer le numéro de la question que vous souhaitez sélectionner : ', (numero) => {
-            const numeroQuestion = parseInt(numero);
-            if (numeroQuestion >= 1 && numeroQuestion <= questions.length) {
-                const questionChoisie = questions[numeroQuestion - 1];
-                if (!questionDejaSelectionnee(questionChoisie)) {
-                    creerExamen(questionChoisie);
-                } else {
-                    console.log('Cette question a déjà été sélectionnée. Veuillez choisir une autre question.');
-                    choisirQuestionMemeUnite(unit);
-                }
+        const numero = prompt('Veuillez entrer le numéro de la question que vous souhaitez sélectionner : ');
+        const numeroQuestion = parseInt(numero);
+        if (numeroQuestion >= 1 && numeroQuestion <= questions.length) {
+            const questionChoisie = questions[numeroQuestion - 1];
+            if (!questionDejaSelectionnee(questionChoisie)) {
+                creerExamen(questionChoisie);
             } else {
-                console.log('Numéro de question invalide. Veuillez choisir un numéro de question valide.');
+                console.log('Cette question a déjà été sélectionnée. Veuillez choisir une autre question.');
                 choisirQuestionMemeUnite(unit);
             }
-        });
+        } else {
+            console.log('Numéro de question invalide. Veuillez choisir un numéro de question valide.');
+            choisirQuestionMemeUnite(unit);
+        }
     } else {
         console.log('Aucune question trouvée pour cette unité.');
         lireOption([]);
@@ -126,24 +117,27 @@ function questionDejaSelectionnee(question) {
 }
 
 function demanderUnite() {
-    readline.question("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou 'fini' pour terminer : ", (userUnit) => {
-        if (userUnit.toLowerCase() === 'fini') {
-            console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
-            terminerExamen();
-        } else if (/^U[1-9]|1[0-1]$/.test(userUnit)) {
-            unitChoisie = userUnit;
-            choisirQuestionMemeUnite(unitChoisie);
-        } else {
-            console.log('Numéro d\'unité invalide. Veuillez entrer un numéro d\'unité entre U1 et U11.');
-            demanderUnite();
-        }
-    });
+    const userUnit = prompt("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou 'fini' pour terminer : ");
+    if (userUnit.toLowerCase() === 'fini') {
+        console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
+        terminerExamen();
+    } else if (/^U[1-9]|1[0-1]$/.test(userUnit)) {
+        unitChoisie = userUnit;
+        choisirQuestionMemeUnite(unitChoisie);
+    } else {
+        console.log('Numéro d\'unité invalide. Veuillez entrer un numéro d\'unité entre U1 et U11.');
+        demanderUnite();
+    }
 }
 
 function terminerExamen() {
     const examenJSON = JSON.stringify(examen, null, 2);
     fs.writeFileSync(nomFichierExamen, examenJSON);
-    readline.close();
+    rlChooseQuestion.close();
 }
 
-demanderNomFichierExamen(); // Appel initial pour demander le nom du fichier d'examen
+// Initialiser l'unité choisie
+let unitChoisie;
+
+// Appel initial pour demander le nom du fichier d'examen
+demanderNomFichierExamen();
