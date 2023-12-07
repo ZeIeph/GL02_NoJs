@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt-sync')();
-const { showMenu } = require('./Accueil');
+const showMenu = require('./Accueil');
 function afficherQuestions(unit) {
     const dossier = 'JsonFile';
     const fichiers = fs.readdirSync(dossier).filter(fichier => fichier.endsWith('.json') && fichier.includes(unit));

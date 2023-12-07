@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const prompt = require('prompt-sync')();
+const { showMenu } = require('./Accueil');
 
 const examen = { questions: [] };
-const MAX_QUESTIONS = 20;
-const MIN_QUESTIONS = 15;
+const MAX_QUESTIONS = 3;
+const MIN_QUESTIONS = 2;
 
 let nomFichierExamen;
 const dossierExamen = 'Examen';
@@ -83,7 +84,7 @@ function lireOption(questions) {
             }
             break;
         case 'out':
-            console.log('Vous forcez la sortie. Appuyez sur CTRL+C')
+            console.log('Vous forcez la sortie.')
             break;
         default:
             console.log('Option invalide. Veuillez choisir une option valide.');
@@ -136,8 +137,12 @@ function demanderUnite() {
 function terminerExamen() {
     const examenJSON = JSON.stringify(examen, null, 2);
     fs.writeFileSync(nomFichierExamen, examenJSON);
-    rl.ChooseQuestion.close();
+    // No need to close an interface in readline-sync
+    console.log('Examen terminé.');
+    // You can add any additional actions or messages relevant to finishing the exam.
+    showMenu();
 }
+
 
 // Initialiser l'unité choisie
 let unitChoisie;

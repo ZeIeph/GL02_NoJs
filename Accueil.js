@@ -1,11 +1,13 @@
 const fs = require('fs');
-const readline = require('readline');
+//const readline = require('readline');
+const readlineSync = require('readline-sync');
 const path = require('path');
 
-const rl = readline.createInterface({
+/*const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
-});
+}); */
+
 
 const examsFolder = './Examen';
 
@@ -33,6 +35,31 @@ function formatQuestion(question) {
     return `${question.title}\n${question.stem.text}\n`;
 }
 
+function passExam(examName) {
+    const examPath = path.join(examsFolder, examName);
+
+    try {
+        const examData = JSON.parse(fs.readFileSync(examPath, 'utf8'));
+        const questions = examData.questions;
+
+        console.log(`Questions de l'examen "${examName}":`);
+
+        questions.forEach((question, index) => {
+            console.log(question);
+            const answer = readlineSync.question('Quelle est votre réponse ? : ');
+            console.log(`Vous avez répondu :\" ${answer}\"`);
+            if(answer==1){
+                console.log("Ti es le boss mon gaté !\n");
+            }
+        });
+
+    } catch (error) {
+        console.error('Erreur lors de la lecture de l\'examen :', error.message);
+    }
+
+    showMenu();
+}
+
 function viewQuestionsInExam(examName) {
     const examPath = path.join(examsFolder, examName);
 
@@ -58,55 +85,77 @@ function viewExams() {
         console.log(`${index + 1}. ${file}`);
     });
 
-    rl.question('Choisissez un examen (ou tapez 0 pour revenir) : ', (choice) => {
-        if (choice === '0') {
-            showMenu();
+    const choice = readlineSync.question('Choisissez un examen (ou tapez 0 pour revenir) : ');
+
+    if (choice === '0') {
+        showMenu();
+    } else {
+        const chosenIndex = parseInt(choice) - 1;
+        if (chosenIndex >= 0 && chosenIndex < examFiles.length) {
+            const chosenExam = examFiles[chosenIndex];
+            viewQuestionsInExam(chosenExam);
         } else {
-            const chosenIndex = parseInt(choice) - 1;
-            if (chosenIndex >= 0 && chosenIndex < examFiles.length) {
-                const chosenExam = examFiles[chosenIndex];
-                viewQuestionsInExam(chosenExam);
-            } else {
-                console.log('Choix invalide. Veuillez choisir un numéro valide.');
-                viewExams();
-            }
+            console.log('Choix invalide. Veuillez choisir un numéro valide.');
+            viewExams();
         }
-    });
+    }
 }
+
 
 function simulateExam() {
-    console.log('Simuler la passation d\'un examen (fonctionnalité à implémenter).');
-    showMenu();
+    const examFiles = fs.readdirSync(examsFolder);
+    console.log('Quel examen souhaitez-vous faire passer ?');
+    examFiles.forEach((file, index) => {
+        console.log(`${index + 1}. ${file}`);
+    });
+    const choice = readlineSync.question('\nChoisissez un examen (ou tapez 0 pour revenir) : ');
+
+    if (choice === '0') {
+        showMenu();
+    } else {
+        const chosenIndex = parseInt(choice) - 1;
+        if (chosenIndex >= 0 && chosenIndex < examFiles.length) {
+            const chosenExam = examFiles[chosenIndex];
+
+            console.log("C'est parti pour l'examen " + choice);
+            
+            passExam(chosenExam);
+            //viewQuestionsInExam(chosenExam);
+        } else {
+            console.log('Choix invalide. Veuillez choisir un numéro valide.');
+            viewExams();
+        }
+    }
 }
+
 
 function showMenu() {
-    rl.question(
-        'Choisissez une option :\n1. Naviguer dans les questions\n2. Composer un examen\n3. Voir les examens existants\n4. Simuler la passation d\'un examen\n5. Quitter\n',
-        (choice) => {
-            switch (choice) {
-                case '1':
-                    navigateQuestions();
-                    break;
-                case '2':
-                    composeExam();
-                    break;
-                case '3':
-                    viewExams();
-                    break;
-                case '4':
-                    simulateExam();
-                    break;
-                case '5':
-                    console.log('Au revoir!');
-                    rl.close();
-                    break;
-                default:
-                    console.log('Option invalide. Veuillez choisir une option valide.');
-                    showMenu();
-                    break;
-            }
-        }
-    );
+    console.log('\nChoisissez une option :\n1. Naviguer dans les questions\n2. Composer un examen\n3. Voir les examens existants\n4. Simuler la passation d\'un examen\n5. Quitter\n');
+    
+    const choice = readlineSync.question('Votre choix : ');
+
+    switch (choice) {
+        case '1':
+            navigateQuestions();
+            break;
+        case '2':
+            composeExam();
+            break;
+        case '3':
+            viewExams();
+            break;
+        case '4':
+            simulateExam();
+            break;
+        case '5':
+            console.log('Au revoir!');
+            break;
+        default:
+            console.log('Option invalide. Veuillez choisir une option valide.');
+            showMenu();
+            break;
+    }
 }
 
-showMenu();
+//showMenu(); //PENSER A SUPPRIMER QUAND ON VEUT OBLIGER A PASSER PAR LE LOGIN
+module.exports = { showMenu };

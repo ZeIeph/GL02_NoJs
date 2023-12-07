@@ -1,12 +1,16 @@
-const readline = require('readline');
+const readline = require('readline-sync');
 const fs = require('fs');
 
-const rl = readline.createInterface({
+const { showMenu } = require('./Accueil');
+
+/*const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
-});
+});*/
 
 let users = [];
+
+
 
 // Charger les utilisateurs à partir du fichier (s'il existe)
 try {
@@ -22,72 +26,73 @@ function saveUsersToFile() {
 }
 
 function createUser() {
-    rl.question('Choisissez un pseudo : ', (username) => {
-        // Vérifier si le pseudo est déjà utilisé
-        const existingUser = users.find(u => u.username === username);
-        if (existingUser) {
-            console.log('Ce pseudo est déjà pris. Veuillez choisir un autre.');
-            createUser(); // Redemande un pseudo
-        } else {
-            rl.question('Choisissez un mot de passe : ', (password) => {
-                // Stocker les informations de l'utilisateur
-                users.push({ username, password });
-                console.log('Compte créé avec succès!');
-                saveUsersToFile();
-                showMenu();
-            });
-        }
-    });
+    let username = readline.question('Choisissez un pseudo : ');
+
+    const existingUser = users.find(u => u.username === username);
+    if (existingUser) {
+        console.log('Ce pseudo est déjà pris. Veuillez choisir un autre.');
+        createUser(); // Redemande un pseudo
+    } else {
+        let password = readline.question('Choisissez un mot de passe : ', {
+            hideEchoBack: true, // Hide user input
+        });
+
+        users.push({ username, password });
+        console.log('Compte créé avec succès!');
+        saveUsersToFile();
+        showMenuConnexion();
+    }
 }
 
 
 function loginUser() {
-    rl.question('Entrez votre pseudo : ', (username) => {
-        rl.question('Entrez votre mot de passe : ', (password) => {
-            const user = users.find(u => u.username === username && u.password === password);
-            if (user) {
-                console.log('Connexion réussie!');
-                redirectToAccueil();
-            } else {
-                console.log('Échec de la connexion. Vérifiez vos informations.');
-                showMenu();
-            }
-        });
-    });
+    let username = readline.question('Entrez votre pseudo : ');
+    let password = readline.question('Entrez votre mot de passe : ');
+
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        console.log('Connexion réussie!');
+        redirectToAccueil();
+    } else {
+        console.log('Échec de la connexion. Vérifiez vos informations.');
+        showMenuConnexion();
+    }
 }
 
 function redirectToAccueil() {
     try {
-        const accueilModule = require('./Accueil');
+        showMenu();
     } catch (error) {
         console.error('Erreur lors de la redirection vers Accueil.js :', error.message);
-        showMenu();
+        showMenuConnexion();
     }
 }
 
-function showMenu() {
-    rl.question('Choisissez une option:\n1. Créer un compte\n2. Se connecter\n3. Quitter\n', (choice) => {
-        switch (choice) {
-            case '1':
-                createUser();
-                break;
-            case '2':
-                loginUser();
-                break;
-            case '3':
-                console.log('Au revoir!');
-                saveUsersToFile(); // Sauvegarder les utilisateurs avant de quitter
-                rl.close();
-                break;
-            default:
-                console.log('Option invalide. Veuillez choisir une option valide.');
-                showMenu();
-                break;
-        }
-    });
+
+
+function showMenuConnexion() {
+    let choice = readline.question('Choisissez une option:\n1. Créer un compte\n2. Se connecter\n3. Quitter\n');
+
+    switch (choice) {
+        case '1':
+            createUser();
+            break;
+        case '2':
+            loginUser();
+            break;
+        case '3':
+            console.log('Au revoir!');
+            saveUsersToFile(); // Sauvegarder les utilisateurs avant de quitter
+            break;
+        default:
+            console.log('Option invalide. Veuillez choisir une option valide.');
+            showMenuConnexion();
+            break;
+    }
 }
 
+
 // Afficher le menu principal
-showMenu();
+showMenuConnexion();
 
 
