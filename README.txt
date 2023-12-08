@@ -5,3 +5,12 @@ npm install vcards-js --save
 npm install readline-sync
 sont nécessaires pour pouvoir utiliser correctement cet utilitaire. Pour lancer l'application, il faut lancer la commande node Connexion.js
 
+Tout n'est malheureusement pas parfait dans notre projet puisque le temps nous a manqué.
+
+Par conséquent, nous n'avons pas pu effectuer les tests unitaires.
+
+Pour ce qui est des SPECS, les SPECS 1,2,3,5 fonctionnent très bien et les SPECS 4,5 et 8 ont été commencées mais pas terminées.
+
+N'hésitez surtout pas à poser des questions si besoin.
+
+Cordialement, Nathan Boutevillain, Anne-Lise Knecht, Milo Marchand et Nicolas Rigolat.
