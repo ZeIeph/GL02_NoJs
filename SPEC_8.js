@@ -13,16 +13,20 @@ function parseGiftQuestion(giftString) {
 
     // Analyse des options de réponse et des réponses correctes
     for (let i = 1; i < lines.length; i++) {
+
         const line = lines[i];
         if (line.startsWith("{") && line.endsWith("}")) {
-            // Option de réponse
-            const option = line.substring(1, line.length - 1).trim();
-            questionObject.options.push(option);
+
 
             // Vérification des réponses correctes
             if (line.includes("=")) {
                 questionObject.correctAnswers.push(option);
             }
+
+            // Option de réponse
+            const option = line.substring(1, line.length - 1).trim();
+            questionObject.options.push(option);
+
         }
     }
 
