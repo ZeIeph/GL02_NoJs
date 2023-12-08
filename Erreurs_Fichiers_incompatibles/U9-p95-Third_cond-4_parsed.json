@@ -1,0 +1,314 @@
+[
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 240,
+        "line": 4,
+        "column": 11
+      },
+      "end": {
+        "offset": 241,
+        "line": 4,
+        "column": 12
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 254,
+        "line": 5,
+        "column": 5
+      },
+      "end": {
+        "offset": 255,
+        "line": 5,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 370,
+        "line": 6,
+        "column": 5
+      },
+      "end": {
+        "offset": 371,
+        "line": 6,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 44,
+        "line": 9,
+        "column": 5
+      },
+      "end": {
+        "offset": 45,
+        "line": 9,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 132,
+        "line": 10,
+        "column": 5
+      },
+      "end": {
+        "offset": 133,
+        "line": 10,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 44,
+        "line": 13,
+        "column": 5
+      },
+      "end": {
+        "offset": 45,
+        "line": 13,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 136,
+        "line": 14,
+        "column": 5
+      },
+      "end": {
+        "offset": 137,
+        "line": 14,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 44,
+        "line": 17,
+        "column": 5
+      },
+      "end": {
+        "offset": 45,
+        "line": 17,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 158,
+        "line": 18,
+        "column": 5
+      },
+      "end": {
+        "offset": 159,
+        "line": 18,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 44,
+        "line": 21,
+        "column": 5
+      },
+      "end": {
+        "offset": 45,
+        "line": 21,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 144,
+        "line": 22,
+        "column": 5
+      },
+      "end": {
+        "offset": 145,
+        "line": 22,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 44,
+        "line": 25,
+        "column": 5
+      },
+      "end": {
+        "offset": 45,
+        "line": 25,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  },
+  {
+    "message": "Expected \"{\" but \":\" found.",
+    "expected": [
+      {
+        "type": "literal",
+        "text": "{",
+        "ignoreCase": false
+      }
+    ],
+    "found": ":",
+    "location": {
+      "start": {
+        "offset": 141,
+        "line": 26,
+        "column": 5
+      },
+      "end": {
+        "offset": 142,
+        "line": 26,
+        "column": 6
+      }
+    },
+    "name": "SyntaxError"
+  }
+]

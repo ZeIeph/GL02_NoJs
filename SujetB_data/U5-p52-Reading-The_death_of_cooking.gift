@@ -7,7 +7,7 @@
 // Do not shuffle questions: respect the order
 
 
-::U5 p52 2 Reading: compr questions::Read the article:
+::U5 p52 2 Reading\: compr questions::Read the article\:
 <INSERT TEXT IMAGE HERE>
 
 
@@ -59,7 +59,7 @@
 
 // ex 6: Vocabulary / Expressions
 
-::U5 p52 6 Reading/Vocab expressions::Match the underlined phrases in the article to their meanings:{
+::U5 p52 6 Reading/Vocab expressions::Match the underlined phrases in the article to their meanings\:{
   =having none of it           -> refuse to accept
   =do away with                -> remove the need for
   =hit upon                    -> discover by accident

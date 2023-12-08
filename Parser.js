@@ -15,9 +15,7 @@ const directoryPath = 'SujetB_data';
 //const directoryPath = 'testsGift';
 
 // Crée un dossier "JsonFile" s'il n'existe pas déjà
-//const outputDirectory = path.join('JsonFile');
-//const outputDirectory = path.join('testsJson');
-const outputDirectory = path.join('testError');
+const outputDirectory = path.join('SujetB_data_format_json');
 if (!fs.existsSync(outputDirectory)) {
     fs.mkdirSync(outputDirectory);
 }
@@ -30,14 +28,18 @@ if (files && files.length > 0) {
 
     // Fonction pour lire et parser un fichier GIFT
     function processFile(filePath) {
-        const fileContent = fs.readFileSync(filePath, 'utf8');
+        var fileContent = fs.readFileSync(filePath, 'utf8');
 
         // Parse le fichier GIFT avec gift-parser
         const parser = new Parser();
-        const newFileContent=fileContent.replaceAll("~=","=");
-        console.log(newFileContent);
+        fileContent=fileContent.replaceAll("~=","=");
+        fileContent=fileContent.replaceAll(": ","\: ");
+        //fileContent=fileContent.replaceAll("1:SA:","");
+        //fileContent=fileContent.replaceAll("1:MC:","");
+        console.log(fileContent);
         console.log("\n");
-        const parsedData = parser.update(newFileContent).errorOnly(newFileContent);
+        //const parsedData = parser.update(fileContent).errorOnly(fileContent);
+        const parsedData = parser.update(fileContent).parseOnly(fileContent);
         console.log(parsedData);
         console.log("\n");
 
@@ -48,9 +50,6 @@ if (files && files.length > 0) {
         fs.writeFileSync(outputFilePath, JSON.stringify(parsedData, null, 2), 'utf8');
     }
 
-    function transformToTest(){
-
-    }
 
     // Boucle pour parcourir chaque fichier dans le répertoire
     files.forEach(file => {
