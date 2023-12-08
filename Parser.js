@@ -8,11 +8,8 @@ const fs = require('fs');
 const path = require('path');
 const Parser = require("gift-parser-ide").default;
 
-//const Question = require("./Question");
-
 // Chemin du répertoire contenant les fichiers GIFT
 const directoryPath = 'SujetB_data';
-//const directoryPath = 'testsGift';
 
 // Crée un dossier "JsonFile" s'il n'existe pas déjà
 const outputDirectory = path.join('SujetB_data_format_json');

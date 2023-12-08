@@ -4,8 +4,8 @@ const prompt = require('prompt-sync')();
 const { showMenu } = require('./Accueil');
 
 const examen = { questions: [] };
-const MAX_QUESTIONS = 6;
-const MIN_QUESTIONS = 5;
+const MAX_QUESTIONS = 20;
+const MIN_QUESTIONS = 15;
 
 let nomFichierExamen;
 const dossierExamen = 'Examen';
@@ -23,7 +23,7 @@ function demanderNomFichierExamen() {
 }
 
 function afficherQuestions(unit) {
-    const dossier = 'JsonFile';
+    const dossier = 'SujetB_data_format_json';
     const fichiers = fs.readdirSync(dossier).filter(fichier => fichier.endsWith('.json') && fichier.includes(unit));
 
     let questionNumber = 1;
@@ -121,8 +121,8 @@ function questionDejaSelectionnee(question) {
 }
 
 function demanderUnite() {
-    const userUnit = prompt("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou 'fini' pour terminer : ");
-    if (userUnit.toLowerCase() === 'fini') {
+    const userUnit = prompt("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) : ");
+    if (userUnit.toLowerCase() === 0) {
         console.log(`\nExamen terminé. Consultez le fichier ${nomFichierExamen}.`);
         terminerExamen();
     } else if (/^U[1-9]|1[0-1]$/.test(userUnit)) {

@@ -3,10 +3,6 @@ const fs = require('fs');
 
 const { showMenu } = require('./Accueil');
 
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});*/
 
 let users = [];
 

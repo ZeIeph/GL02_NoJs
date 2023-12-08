@@ -1,12 +1,7 @@
 const fs = require('fs');
-//const readline = require('readline');
 const readlineSync = require('readline-sync');
 const path = require('path');
 
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-}); */
 
 
 const examsFolder = './Examen';
@@ -40,13 +35,10 @@ function passExam(examName) {
 
     try {
         const examData = JSON.parse(fs.readFileSync(examPath, 'utf8'));
-        //console.log(examData);
-        
         const questions = examData.questions;
         let score=0;
         let scoreMax=0;
         console.log(`Questions de l'examen "${examName}":`);
-
         questions.forEach((question, index) => {
             let correctAnswers = [];
             console.log(`Question ${index+1} :`);
@@ -55,7 +47,8 @@ function passExam(examName) {
 
             switch(typeOfQuestion) {
                 case 'MC':
-                    console.log('\nPropositions de réponse :')
+                    
+                    console.log('\n Il s\'agit d\'un QCM.\n Voici les propositions de reponse :')
                     question.choices.forEach((proposition,i) => {
                         console.log(i+1+" - "+proposition.text.text);
                         if(proposition.isCorrect==true){
@@ -65,19 +58,53 @@ function passExam(examName) {
                     break;
 
                 case 'Short':
-                    question.choices.forEach((proposition,i) => {
+                    question.choices.forEach((proposition) => {
                         correctAnswers.push(proposition.text.text);
                     });
-                    console.log(correctAnswers);
                     break;
 
                 case 'Description':
                     console.log('C etait la description de l exercice.');
                     break;
+
+                case 'Matching':
+                    let firstElement = [];
+                    let secondElement = [];
+                    console.log(question);
+                    question.matchPairs.forEach((proposition,i)=> {
+                        firstElement.push(proposition.subquestion.text);
+                        secondElement.push(proposition.subanswer);
+                    });
+                    console.log(firstElement);
+                    console.log(secondElement);
+                    let numAnswerMatch;
+                    let answerMatching = [];
+                    let indice;
+                    firstElement.forEach((firstEl,j) => {
+                        if(firstEl!=0){
+                            console.log("A quoi correspond \""+firstEl+"\" ?");
+                        }
+                        
+                        secondElement.forEach((secondEl,k) => {
+                            if(secondEl!=0){
+                                console.log(k+1+" - "+secondEl);
+                            }
+                            indice=k;
+                        });
+                        numAnswerMatch = readlineSync.question('\nQuelle est votre reponse ? (Repondez par un chiffre correspondant aux reponses) : ');
+                        answerMatching.push([firstEl,secondElement[numAnswerMatch-1]]);
+                        
+                        firstElement[j]=0;
+                        secondElement[indice]=0;
+                        console.log(answerMatching);
+                        console.log(firstElement);
+                    });
+
+                    break;
             }
 
             
-            if(typeOfQuestion!='Description'){
+            if(typeOfQuestion!='Description' && typeOfQuestion!='Matching'){
                 let answer = readlineSync.question('\nQuelle est votre reponse ? (Repondez par un chiffre correspondant aux reponses) : ');
             
                 console.log(`Vous avez répondu : ${answer}\n`);
@@ -89,6 +116,18 @@ function passExam(examName) {
                     score=score+1;
                 }
                 scoreMax=scoreMax+1;
+                
+            }   
+            if(typeOfQuestion=='Matching'){
+                let correctAnswerMatching = [];
+                question.matchPairs.forEach((proposition,i)=> {
+                    correctAnswerMatching.push([proposition.subquestion.text,proposition.subanswer])
+                });
+
+                if(answerMatching==correctAnswerMatching){
+                    score=score+answerMatching.length();
+                }
+                scoreMax=scoreMax+answerMatching.length();
             }
             
         });
@@ -114,9 +153,12 @@ function typeQuestion(question){
         case 'Description':
             retour='Description';
             break;
+
+        case 'Matching':
+            retour='Matching';7
+            break;
     }
     
-    console.log(retour);
     return retour;
 }
 
@@ -180,7 +222,6 @@ function simulateExam() {
             console.log("C'est parti pour l'examen " + choice);
             
             passExam(chosenExam);
-            //viewQuestionsInExam(chosenExam);
         } else {
             console.log('Choix invalide. Veuillez choisir un numéro valide.');
             viewExams();
