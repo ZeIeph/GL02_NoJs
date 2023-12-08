@@ -4,8 +4,8 @@ const prompt = require('prompt-sync')();
 const { showMenu } = require('./Accueil');
 
 const examen = { questions: [] };
-const MAX_QUESTIONS = 3;
-const MIN_QUESTIONS = 2;
+const MAX_QUESTIONS = 6;
+const MIN_QUESTIONS = 5;
 
 let nomFichierExamen;
 const dossierExamen = 'Examen';

@@ -51,26 +51,46 @@ function passExam(examName) {
             let correctAnswers = [];
             console.log(`Question ${index+1} :`);
             console.log(question.stem.text);
-            console.log('\nPropositions de réponse :')
-            question.choices.forEach((proposition,i) => {
-                console.log(i+1+" - "+proposition.text.text);
-                
-                if(proposition.isCorrect==true){
-                    correctAnswers.push(i+1);
-                }
-                
-            });
-            
-            const answer = readlineSync.question('\nQuelle est votre reponse ? (Repondez par un chiffre correspondant aux reponses) : ');
-            
-            console.log(`Vous avez répondu :${answer}`);
-            const numberAnswer = parseInt(answer);
+            let typeOfQuestion = typeQuestion(question);
 
-            if(correctAnswers.includes(numberAnswer)){
-                console.log("Bonne reponse ! Bravo !\n");
-                score=score+1;
+            switch(typeOfQuestion) {
+                case 'MC':
+                    console.log('\nPropositions de réponse :')
+                    question.choices.forEach((proposition,i) => {
+                        console.log(i+1+" - "+proposition.text.text);
+                        if(proposition.isCorrect==true){
+                            correctAnswers.push(i+1);
+                        }
+                    });
+                    break;
+
+                case 'Short':
+                    question.choices.forEach((proposition,i) => {
+                        correctAnswers.push(proposition.text.text);
+                    });
+                    console.log(correctAnswers);
+                    break;
+
+                case 'Description':
+                    console.log('C etait la description de l exercice.');
+                    break;
             }
-            scoreMax=scoreMax+1;
+
+            
+            if(typeOfQuestion!='Description'){
+                let answer = readlineSync.question('\nQuelle est votre reponse ? (Repondez par un chiffre correspondant aux reponses) : ');
+            
+                console.log(`Vous avez répondu : ${answer}\n`);
+                if(typeOfQuestion=='MC') {
+                    answer = parseInt(answer);
+                }
+                if(correctAnswers.includes(answer)){
+                    console.log("Bonne reponse ! Bravo !\n");
+                    score=score+1;
+                }
+                scoreMax=scoreMax+1;
+            }
+            
         });
         console.log(`Vous avez obtenu le score de ${score} sur ${scoreMax} à ce test.`);
 
@@ -79,6 +99,25 @@ function passExam(examName) {
     }
 
     showMenu();
+}
+
+function typeQuestion(question){
+    switch (question.type){
+        case 'Short':
+            retour='Short';
+            break;
+        
+        case 'MC':
+            retour='MC';
+            break;
+
+        case 'Description':
+            retour='Description';
+            break;
+    }
+    
+    console.log(retour);
+    return retour;
 }
 
 function viewQuestionsInExam(examName) {
