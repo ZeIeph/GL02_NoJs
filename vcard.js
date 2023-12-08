@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const vcard = VCard();
+const VCard = VCard();
 
 rl.question('First name: ', (firstName) => {
   vcard.firstName = firstName;
@@ -23,13 +23,13 @@ rl.question('First name: ', (firstName) => {
             vcard.birthday = birthday;
           
           
-          // Générer le contenu de la vCard
-          const vcardContent = vcard.getFormattedString();
+          // Générer contenu VCard
+          const VCardContent = VCard.getFormattedString();
 
-          // Enregistrer la vCard dans un fichier
+          // Enregistrement VCard dans un fichier
           const fileName = 'VCard.vcf';
-          fs.writeFileSync(fileName, vcardContent, 'utf-8');
-          console.log(`La vCard est enregistrée dans ${fileName}`);
+          fs.writeFileSync(fileName, VCardContent, 'utf-8');
+          console.log(`La VCard est enregistrée dans ${fileName}`);
           
           rl.close();
         });
