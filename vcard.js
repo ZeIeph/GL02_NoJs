@@ -1,56 +1,40 @@
-import VCard, { saveToFile } from 'vcards-js';
+const { VCard } = require('vcards-js');
+const fs = require('fs');
+const readline = require('readline');
 
-//create a new vCard
-var VCard = VCard();
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-'use strict';
+const vcard = VCard();
 
-function downloadToFile(informations, nom, TypeInfo) {
-  const a = document.createElement('a');
-  const file = new Blob([informations], { type: TypeInfo });
+rl.question('First name: ', (firstName) => {
+  vcard.firstName = firstName;
+  rl.question('Last Name: ', (lastName) => {
+    vcard.lastName = lastName;
+    rl.question('Organization: ', (organization) => {
+      vcard.organization = organization;
+      rl.question('Email: ', (email) => {
+        vcard.email = email;
+        rl.question('workPhone: ', (workPhone) => {
+          vcard.workPhone = workPhone;
+          rl.question('Birthday: ', (birthday) => {
+            vcard.birthday = birthday;
+          
+          
+          // Générer le contenu de la vCard
+          const vcardContent = vcard.getFormattedString();
 
-  a.href = URL.createObjectURL(file);
-  a.download = nom;
-  a.click();
-
-  URL.revokeObjectURL(a.href);
-}
-
-//paramètres de la VCard à remplir
-const makeVCardVersion = () => `VERSION:4.0`;
-const makeVCardInfo = (info) => `N:${info}`;
-const makeVCardName = (name) => `FN:${name}`;
-const makeVCardPhoto = (img) => `PHOTO;TYPE=JPEG;ENCODING=b:[${img}]`
-const makeVCardBday = (birthday) => `BIRTHDAY;TYPE=INT:${birthday}`;
-const makeVCardGender = (gender) => `GENDER:${gender}`;
-const makeVCardAdr = (address) => `ADR;TYPE=WORK,PREF:;;${address}`;
-const makeVCardTel = (phone) => `TEL;TYPE=WORK,VOICE:${phone}`;
-const makeVCardEmail = (email) => `EMAIL:${email}`;
-const makeVCardGeo = (geo) => `GEO:${geo}`;
-const makeVCardTitle = (title) => `TITLE:${title}`;
-const makeVCardOrg = (organisation) => `ORG:${organisation}`;
-const makeVCardUrl = (url) => `URL:${url}`;
-const makeVCardTimeStamp = () => `REV:${new Date().toISOString()}`;
-
-//créer la vcard
-function makeVCard() {
-  let vcard = `BEGIN:VCARD
-${makeVCardVersion()}
-${makeVCardInfo(cardInfoEl.value)}
-${makeVCardName(nameEl.value)}
-${makeVCardPhoto(previewEl.src)}
-${makeVCardBday(birthdayEl.value)}
-${makeVCardGender(genderEl.value)}
-${makeVCardAdr(addressEl.value)}
-${makeVCardTel(telEl.value)}
-${makeVCardEmail(emailEl.value)}
-${makeVCardGeo(geoEl.value)}
-${makeVCardTitle(titleEl.value)}
-${makeVCardOrg(organisationEl.value)}
-${makeVCardUrl(urlEl.value)}
-${makeVCardTimeStamp()}
-END:VCARD`;
-  downloadToFile(vcard, 'vcard.vcf', 'text/vcard');
-}
-
-saveToFile(this.VCard);
+          // Enregistrer la vCard dans un fichier
+          const fileName = 'VCard.vcf';
+          fs.writeFileSync(fileName, vcardContent, 'utf-8');
+          console.log(`La vCard est enregistrée dans ${fileName}`);
+          
+          rl.close();
+        });
+        });
+      });
+    });
+  });
+});
