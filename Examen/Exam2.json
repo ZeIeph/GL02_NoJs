@@ -1,0 +1,172 @@
+{
+  "questions": [
+    {
+      "type": "Short",
+      "title": "U1 p7 Adverbs GR 1.3",
+      "stem": {
+        "format": "html",
+        "text": "They're a little nervous at the beginning. (<i>sometimes</i>) "
+      },
+      "hasEmbeddedAnswers": false,
+      "globalFeedback": null,
+      "choices": [
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They're sometimes a little nervous at the beginning."
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They are sometimes a little nervous at the beginning."
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They're sometimes a little nervous at the beginning"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They are sometimes a little nervous at the beginning"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They’re sometimes a little nervous at the beginning"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "html",
+            "text": "They’re sometimes a little nervous at the beginning."
+          },
+          "feedback": null
+        }
+      ],
+      "id": null,
+      "tags": null
+    },
+    {
+      "type": "MC",
+      "title": "U5 p50 2.1",
+      "stem": {
+        "format": "moodle",
+        "text": "The writer _____ like chilli."
+      },
+      "hasEmbeddedAnswers": true,
+      "globalFeedback": null,
+      "choices": [
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "likes"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "doesn’t"
+          },
+          "feedback": null
+        }
+      ],
+      "id": null,
+      "tags": null
+    },
+    {
+      "type": "MC",
+      "title": "U6 p67 Rev2.1",
+      "stem": {
+        "format": "moodle",
+        "text": "The only way I can get _____ to my cousin is by talking about dance."
+      },
+      "hasEmbeddedAnswers": true,
+      "globalFeedback": null,
+      "choices": [
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "away"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "down"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "into"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "over"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": false,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "round"
+          },
+          "feedback": null
+        },
+        {
+          "isCorrect": true,
+          "weight": null,
+          "text": {
+            "format": "moodle",
+            "text": "through"
+          },
+          "feedback": null
+        }
+      ],
+      "id": null,
+      "tags": null
+    }
+  ]
+}

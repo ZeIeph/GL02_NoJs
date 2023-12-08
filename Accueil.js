@@ -40,18 +40,39 @@ function passExam(examName) {
 
     try {
         const examData = JSON.parse(fs.readFileSync(examPath, 'utf8'));
+        //console.log(examData);
+        
         const questions = examData.questions;
-
+        let score=0;
+        let scoreMax=0;
         console.log(`Questions de l'examen "${examName}":`);
 
         questions.forEach((question, index) => {
-            console.log(question);
-            const answer = readlineSync.question('Quelle est votre réponse ? : ');
-            console.log(`Vous avez répondu :\" ${answer}\"`);
-            if(answer==1){
-                console.log("Ti es le boss mon gaté !\n");
+            let correctAnswers = [];
+            console.log(`Question ${index+1} :`);
+            console.log(question.stem.text);
+            console.log('\nPropositions de réponse :')
+            question.choices.forEach((proposition,i) => {
+                console.log(i+1+" - "+proposition.text.text);
+                
+                if(proposition.isCorrect==true){
+                    correctAnswers.push(i+1);
+                }
+                
+            });
+            
+            const answer = readlineSync.question('\nQuelle est votre reponse ? (Repondez par un chiffre correspondant aux reponses) : ');
+            
+            console.log(`Vous avez répondu :${answer}`);
+            const numberAnswer = parseInt(answer);
+
+            if(correctAnswers.includes(numberAnswer)){
+                console.log("Bonne reponse ! Bravo !\n");
+                score=score+1;
             }
+            scoreMax=scoreMax+1;
         });
+        console.log(`Vous avez obtenu le score de ${score} sur ${scoreMax} à ce test.`);
 
     } catch (error) {
         console.error('Erreur lors de la lecture de l\'examen :', error.message);
@@ -157,5 +178,5 @@ function showMenu() {
     }
 }
 
-//showMenu(); //PENSER A SUPPRIMER QUAND ON VEUT OBLIGER A PASSER PAR LE LOGIN
+showMenu(); //PENSER A SUPPRIMER QUAND ON VEUT OBLIGER A PASSER PAR LE LOGIN
 module.exports = { showMenu };
