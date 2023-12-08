@@ -3,7 +3,7 @@ const path = require('path');
 const prompt = require('prompt-sync')();
 const showMenu = require('./Accueil');
 function afficherQuestions(unit) {
-    const dossier = 'JsonFile';
+    const dossier = 'SujetB_data_format_json';
     const fichiers = fs.readdirSync(dossier).filter(fichier => fichier.endsWith('.json') && fichier.includes(unit));
 
     let questionNumber = 1;
@@ -14,6 +14,7 @@ function afficherQuestions(unit) {
 
         console.log(`\nQuestions dans le fichier ${fichier} pour l'unité ${unit}:`);
         data.forEach(item => {
+            
             if ('title' in item && item['title'] && item['title'].includes(unit)) {
                 console.log(`${questionNumber}. ${item['title']}`);
                 if ('stem' in item && 'text' in item['stem']) {
@@ -31,7 +32,7 @@ function afficherQuestions(unit) {
 
 function choisirUnitEtAfficherQuestions() {
     while (true) {
-        const userUnit = prompt("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou 'fini' pour quitter : ");
+        const userUnit = prompt("Veuillez entrer le numéro de l'unité (U1, U2, ...U11) ou tapez 'fini' pour quitter : ");
         if (userUnit.toLowerCase() === 'fini') {
             console.log('Au revoir!');
             break;
