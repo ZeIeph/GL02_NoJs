@@ -1,0 +1,110 @@
+{
+  "questions": [
+  {
+    "type": "MC",
+    "title": "U5 p52 3.4 Reading compr",
+    "stem": {
+      "format": "moodle",
+      "text": "What does Rhinehart say about people's eating habits in the future?"
+    },
+    "hasEmbeddedAnswers": false,
+    "globalFeedback": null,
+    "choices": [
+      {
+        "isCorrect": false,
+        "weight": null,
+        "text": {
+          "format": "moodle",
+          "text": "They will feel less hungry at meal times."
+        },
+        "feedback": null
+      },
+      {
+        "isCorrect": false,
+        "weight": null,
+        "text": {
+          "format": "moodle",
+          "text": "They will prefer eating liquid food."
+        },
+        "feedback": null
+      },
+      {
+        "isCorrect": true,
+        "weight": null,
+        "text": {
+          "format": "moodle",
+          "text": "They will only cook when they feel like it."
+        },
+        "feedback": null
+      },
+      {
+        "isCorrect": false,
+        "weight": null,
+        "text": {
+          "format": "moodle",
+          "text": "They will appreciate eating out more than people do now."
+        },
+        "feedback": null
+      }
+    ],
+    "id": null,
+    "tags": null
+  },
+  {
+    "type": "Matching",
+    "title": "U5 p52 6 Reading/Vocab expressions",
+    "stem": {
+      "format": "moodle",
+      "text": "Match the underlined phrases in the article to their meanings:"
+    },
+    "hasEmbeddedAnswers": false,
+    "globalFeedback": null,
+    "matchPairs": [
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "having none of it"
+        },
+        "subanswer": "refuse to accept"
+      },
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "do away with"
+        },
+        "subanswer": "remove the need for"
+      },
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "hit upon"
+        },
+        "subanswer": "discover by accident"
+      },
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "reached the end of the line"
+        },
+        "subanswer": "no longer possible to continue"
+      },
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "be confined to"
+        },
+        "subanswer": "be limited to"
+      },
+      {
+        "subquestion": {
+          "format": "moodle",
+          "text": "went viral"
+        },
+        "subanswer": "spread quickly on the internet"
+      }
+    ],
+    "id": null,
+    "tags": null
+  }
+]
+}
