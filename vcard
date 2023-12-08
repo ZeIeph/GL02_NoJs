@@ -1,4 +1,4 @@
-varVCard = require('vcards-js');
+import VCard, { saveToFile } from 'vcards-js';
 
 //create a new vCard
 var VCard = VCard();
@@ -16,7 +16,7 @@ function downloadToFile(informations, nom, TypeInfo) {
   URL.revokeObjectURL(a.href);
 }
 
-//paramètres de la vard à remplir
+//paramètres de la VCard à remplir
 const makeVCardVersion = () => `VERSION:4.0`;
 const makeVCardInfo = (info) => `N:${info}`;
 const makeVCardName = (name) => `FN:${name}`;
@@ -53,4 +53,4 @@ END:VCARD`;
   downloadToFile(vcard, 'vcard.vcf', 'text/vcard');
 }
 
-VCard.saveToFile(this.VCard);
+saveToFile(this.VCard);
