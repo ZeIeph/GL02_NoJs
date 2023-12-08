@@ -8,12 +8,16 @@ const fs = require('fs');
 const path = require('path');
 const Parser = require("gift-parser-ide").default;
 
+//const Question = require("./Question");
+
 // Chemin du répertoire contenant les fichiers GIFT
 const directoryPath = 'SujetB_data';
-//const directoryPath = '.';
+//const directoryPath = 'testsGift';
 
 // Crée un dossier "JsonFile" s'il n'existe pas déjà
-const outputDirectory = path.join('JsonFile');
+//const outputDirectory = path.join('JsonFile');
+//const outputDirectory = path.join('testsJson');
+const outputDirectory = path.join('testError');
 if (!fs.existsSync(outputDirectory)) {
     fs.mkdirSync(outputDirectory);
 }
@@ -31,13 +35,21 @@ if (files && files.length > 0) {
         // Parse le fichier GIFT avec gift-parser
         const parser = new Parser();
         const newFileContent=fileContent.replaceAll("~=","=");
-        const parsedData = parser.update(newFileContent).parseOnly(newFileContent);
-
+        console.log(newFileContent);
+        console.log("\n");
+        const parsedData = parser.update(newFileContent).errorOnly(newFileContent);
+        console.log(parsedData);
+        console.log("\n");
 
         // Crée un nouveau fichier dans le dossier "JsonFile" pour stocker le résultat
         const outputFileName = path.basename(filePath, '.gift') + '_parsed.json';
+        
         const outputFilePath = path.join(outputDirectory, outputFileName);
         fs.writeFileSync(outputFilePath, JSON.stringify(parsedData, null, 2), 'utf8');
+    }
+
+    function transformToTest(){
+
     }
 
     // Boucle pour parcourir chaque fichier dans le répertoire
