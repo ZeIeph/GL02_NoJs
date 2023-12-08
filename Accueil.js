@@ -258,5 +258,5 @@ function showMenu() {
     }
 }
 
-showMenu(); //PENSER A SUPPRIMER QUAND ON VEUT OBLIGER A PASSER PAR LE LOGIN
+//showMenu(); //PENSER A SUPPRIMER QUAND ON VEUT OBLIGER A PASSER PAR LE LOGIN
 module.exports = { showMenu };
