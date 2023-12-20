@@ -3,7 +3,7 @@ npm install gift-parser-ide (qui s'utilise selon la commande node Parser.js)
 npm install prompt-sync
 npm install vcards-js --save
 npm install readline-sync
-sont nécessaires pour pouvoir utiliser correctement cet utilitaire. Pour lancer l'application, il faut lancer la commande node Connexion.js
+sont nécessaires pour pouvoir utiliser l'application, il faut lancer correctement cet utilitaire. Pour lancer cer la commande node Connexion.js
 
 Tout n'est malheureusement pas parfait dans notre projet puisque le temps nous a manqué.
 
@@ -18,3 +18,5 @@ Le Parser fonctionne sur la plupart des fichiers GIFT, cependant certains possé
 N'hésitez surtout pas à poser des questions si besoin.
 
 Cordialement, Nathan Boutevillain, Anne-Lise Knecht, Milo Marchand et Nicolas Rigolat.
+
+test de push
