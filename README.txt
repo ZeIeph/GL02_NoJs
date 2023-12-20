@@ -20,4 +20,3 @@ N'hésitez surtout pas à poser des questions si besoin.
 
 Cordialement, Nathan Boutevillain, Anne-Lise Knecht, Milo Marchand et Nicolas Rigolat.
 
-test de push
